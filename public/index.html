@@ -1,44 +1,66 @@
 <html>
 <head>
-<title>Angular JS Includes</title>
-<style>
-table, th , td {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
-}
-table tr:nth-child(odd) {
-  background-color: #f2f2f2;
-}
-table tr:nth-child(even) {
-  background-color: #ffffff;
-}
-</style>
+<title>魔兽守卫军兑换码生成器</title>
+<script src="angular.min.js"></script>
 </head>
 <body>
-<h2>AngularJS Sample Application</h2>
-<div ng-app="" ng-controller="studentController">
+<h2>魔兽守卫军兑换码生成器</h2>
+<div ng-app="mainApp" ng-controller="studentController">
+<form name="studentForm" novalidate>
+<table border="0">
+<tr><td>商品ID:</td><td><input type="text" ng-model="productID" required>
+</td></tr>
+<tr><td>商品数值(只对宝石有效): </td><td><input type="text" ng-model="productValue" required>
+</td></tr>
+<tr><td>商品数量: </td><td><input type="text" ng-model="productNum" required>
+</td></tr>
+<tr><td><button ng-click="getProducts()">生成</button></td>
+</table>
+</form>
+<span ng-bind="cdkeys"></span>
 <table>
    <tr>
-      <th>Name</th>
-      <th>Roll No</th>
-	  <th>Percentage</th>
+      <th>|--商品ID---</th>
+      <th>|--商品数值---</th>
+      <th>|--商品数量---</th>
    </tr>
-   <tr ng-repeat="student in students">
-      <td>{{ student.Name }}</td>
-      <td>{{ student.RollNo }}</td>
-	  <td>{{ student.Percentage }}</td>
+   <tr ng-repeat="product in products">
+      <td>|{{ product.productID }}</td>
+      <td>|{{ product.productValue }}</td>
+      <td>|{{ product.productNum }}</td>
    </tr>
 </table>
 </div>
 <script>
-function studentController($scope,$http) {
-var url="data.txt";
-   $http.get(url).success( function(response) {
-                           $scope.students = response;
-                        });
-}
+var mainApp = angular.module("mainApp", []);
+var count = 1;
+mainApp.controller('studentController', ['$scope', '$http', function($scope, $http) {
+   // $scope.getProducts = function(){
+   //  $http.get("data.txt").success(function(response){
+   //    $scope.products = response;
+   //    console.log(count);
+   //    count += 1;
+   //  });
+   // }
+   $scope.getProducts = function(){
+    console.log("getProducts.");
+      var res = $http.post('/', {name: "hujing"});
+      res.success(function(data, status, headers, config) {
+        // $scope.message = data;
+        console.log('success.' + data);
+      });
+      res.error(function(data, status, headers, config) {
+        alert( "failure message: " + JSON.stringify({data: data}));
+      });
+   }
+   $scope.reset = function(){
+    console.log("reset all values.");
+    $scope.productID = "1";
+    $scope.productValue = "1";
+    $scope.productNum = "1";
+   }   
+   $scope.reset();
+}]);
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 </body>
 </html>
