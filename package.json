@@ -3,6 +3,7 @@
   "version" : "0.0.1",
   "dependencies": {
         "express": "latest",
+        "express-session": "latest",
         "body-parser": "latest",
         "mongoose": "latest",
         "q": "latest"

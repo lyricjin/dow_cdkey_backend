@@ -14,7 +14,6 @@ var CDKeys = mongoose.model("cdkeys",
 		cdkey:         String
 	}, 
 	"cdkeys");
-var GMAccounts = mongoose.model("gm_accounts", {}, "gm_accounts");
 
 // CDKeys.findOne({}, "").exec().then(function(data){
 // 	console.log("data: " + data);
