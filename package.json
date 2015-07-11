@@ -1,0 +1,10 @@
+{
+  "name" : "dow_cdkey_generator",
+  "version" : "0.0.1",
+  "dependencies": {
+        "express": "latest",
+        "body-parser": "latest",
+        "mongoose": "latest",
+        "q": "latest"
+    }
+}
