@@ -1,5 +1,7 @@
 "use strict"
 
+var MAX_CDKEY_NUM = 20;
+
 var CDKeyGenerator = require("./CDKeyGeneratorMongoose.js");
 
 var express = require('express');
@@ -17,13 +19,14 @@ app.post('/', function(request, response){
 	var cdkeyProductType = request.body.product_type;
 	var cdkeyProductCount = request.body.product_count;
 	var cdkeyNum = request.body.cdkey_num; // 需要产生多少个cdkey
+	if(cdkeyNum > MAX_CDKEY_NUM)
+		cdkeyNum = MAX_CDKEY_NUM;
 	cdkeyGenerator.generateCDKeys(
 		{product_type: cdkeyProductType, product_count: cdkeyProductCount, used: 0},
 		cdkeyNum)
 		.then(function(cdkeyValues){
 			var result = JSON.stringify(cdkeyValues);
 			console.log("generateCDKeys: " + result);
-			// response.end("nihao");
 			response.end(result);
 		});
 });
