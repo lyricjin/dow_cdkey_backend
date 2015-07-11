@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 app.post('/', function(request, response){
-	console.log("post. " + JSON.stringify(request.body));
+	var date = new Date();
+	console.log("\n--- record process " + date + " ---\n");
+	console.log("post cmd: " + JSON.stringify(request.body));
 	var cdkeyGenerator = new CDKeyGenerator();
 	var cdkeyProductType = request.body.product_type;
 	var cdkeyProductCount = request.body.product_count;

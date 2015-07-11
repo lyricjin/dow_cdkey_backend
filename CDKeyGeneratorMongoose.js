@@ -1,4 +1,5 @@
 'use strict'
+//var DB_PATH = 'mongodb://localhost/dow';
 var DB_PATH = 'mongodb://218.244.139.56:6111/local';
 
 var Q = require("q");
