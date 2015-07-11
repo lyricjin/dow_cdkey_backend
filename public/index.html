@@ -10,9 +10,9 @@
 <table border="0">
 <tr><td>商品ID:</td><td><input type="text" ng-model="productID" required>
 </td></tr>
-<tr><td>商品数值(只对宝石有效): </td><td><input type="text" ng-model="productValue" required>
+<tr><td>商品数值(只对宝石有效): </td><td><input type="text" ng-model="productCount" required>
 </td></tr>
-<tr><td>商品数量: </td><td><input type="text" ng-model="productNum" required>
+<tr><td>CDKEY数量: </td><td><input type="text" ng-model="cdkeyNum" required>
 </td></tr>
 <tr><td><button ng-click="getProducts()">生成</button></td>
 </table>
@@ -20,14 +20,14 @@
 <span ng-bind="cdkeys"></span>
 <table>
    <tr>
-      <th>|--商品ID---</th>
+      <th>|--商品类型---</th>
       <th>|--商品数值---</th>
-      <th>|--商品数量---</th>
+      <th>|--商品CDKEY---</th>
    </tr>
    <tr ng-repeat="product in products">
-      <td>|{{ product.productID }}</td>
-      <td>|{{ product.productValue }}</td>
-      <td>|{{ product.productNum }}</td>
+      <td>|{{ product.product_type }}</td>
+      <td>|{{ product.product_count }}</td>
+      <td>|{{ product.cdkey }}</td>
    </tr>
 </table>
 </div>
@@ -44,10 +44,17 @@ mainApp.controller('studentController', ['$scope', '$http', function($scope, $ht
    // }
    $scope.getProducts = function(){
     console.log("getProducts.");
-      var res = $http.post('/', {name: "hujing"});
+      var res = $http.post('/', 
+          {
+            product_type: $scope.productID,
+            product_count: $scope.productCount,
+            cdkey_num: $scope.cdkeyNum
+          }
+        );
       res.success(function(data, status, headers, config) {
         // $scope.message = data;
         console.log('success.' + data);
+        $scope.products = data;
       });
       res.error(function(data, status, headers, config) {
         alert( "failure message: " + JSON.stringify({data: data}));
@@ -56,8 +63,8 @@ mainApp.controller('studentController', ['$scope', '$http', function($scope, $ht
    $scope.reset = function(){
     console.log("reset all values.");
     $scope.productID = "1";
-    $scope.productValue = "1";
-    $scope.productNum = "1";
+    $scope.productCount = "1";
+    $scope.cdkeyNum = "1";
    }   
    $scope.reset();
 }]);
