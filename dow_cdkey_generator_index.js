@@ -84,7 +84,7 @@ app.post('/login', function(request, response){
 
 app.post('/', function(request, response){
 	var date = new Date();
-	console.log("\n--- record process " + date.format('yyyy-MM-dd-mm-ss') + " ---\n");
+	console.log("\n--- record process " + date.format('yyyy-MM-dd-hh-mm-ss') + " ---\n");
 	console.log("post cmd: " + JSON.stringify(request.body));
 	var cdkeyGenerator = new CDKeyGenerator();
 	var cdkeyProductType = request.body.product_type;
