@@ -24,7 +24,7 @@
 </tr>
 
 <tr>
-  <td><button ng-click="getProducts()">生成</button></td>
+  <td><button ng-click="getProducts()" ng-disabled="isDisabled" ng-model="isDisabled">生成</button></td>
 </tr>
 
 </table>
@@ -56,21 +56,23 @@ mainApp.controller('cdkeyController', ['$scope', '$http', function($scope, $http
    // }
    $scope.getProducts = function(){
     console.log("getProducts.");
-      var res = $http.post('/', 
-          {
-            product_type: $scope.productID,
-            product_count: $scope.productCount,
-            cdkey_num: $scope.cdkeyNum
-          }
-        );
-      res.success(function(data, status, headers, config) {
-        // $scope.message = data;
-        console.log('success.' + data);
-        $scope.products = data;
-      });
-      res.error(function(data, status, headers, config) {
-        alert( "failure message: " + JSON.stringify({data: data}));
-      });
+    $scope.isDisabled = true;
+    var res = $http.post('/', 
+        {
+          product_type: $scope.productID,
+          product_count: $scope.productCount,
+          cdkey_num: $scope.cdkeyNum
+        }
+      );
+    res.success(function(data, status, headers, config) {
+      // $scope.message = data;
+      console.log('success.' + data);
+      $scope.isDisabled = false;
+      $scope.products = data;
+    });
+    res.error(function(data, status, headers, config) {
+      alert( "failure message: " + JSON.stringify({data: data}));
+    });
    }
    $scope.reset = function(){
     console.log("reset all values.");
